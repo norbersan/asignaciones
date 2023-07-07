@@ -4,16 +4,16 @@ logging:
 
 spring:
   liquibase:
-    enabled: true
+    enabled: false
     change-log: classpath:liquibase/changelog.xml
-    url: jdbc:postgres://localhost:5432/?currentSchema=public
+    url: jdbc:postgresql://localhost:5432/?currentSchema=public
     user: postgres
     password: postgres
     database-change-log-lock-table: liquibase_lock
     database-change-log-table: liquibase
     clear-checksums: false
   datasource:
-    url: jdbc:postgres://localhost:5432/?currentSchema=public
+    url: jdbc:postgresql://localhost:5432/?currentSchema=public
     password: postgres
     username: postgres
   jpa:
