@@ -1,0 +1,26 @@
+logging:
+  level:
+    root: info
+
+spring:
+  liquibase:
+    enabled: true
+    change-log: classpath:liquibase/changelog.xml
+    url: jdbc:postgres://localhost:5432/?currentSchema=public
+    user: postgres
+    password: postgres
+    database-change-log-lock-table: liquibase_lock
+    database-change-log-table: liquibase
+    clear-checksums: false
+  datasource:
+    url: jdbc:postgres://localhost:5432/?currentSchema=public
+    password: postgres
+    username: postgres
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show_sql: true
+        format_sql: true
