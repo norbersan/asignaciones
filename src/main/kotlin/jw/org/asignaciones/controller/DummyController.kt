@@ -19,7 +19,7 @@ class DummyController (
         }.onSuccess {
             return ResponseEntity.ok(result)
         }.onFailure {
-            return ResponseEntity.ok(it)
+            return ResponseEntity.internalServerError().body(it)
         }
         return ResponseEntity.internalServerError().build()
     }
@@ -32,7 +32,7 @@ class DummyController (
         }.onSuccess {
             return ResponseEntity.ok(result)
         }.onFailure {
-            return ResponseEntity.ok(it)
+            return ResponseEntity.internalServerError().body(it)
         }
         return ResponseEntity.internalServerError().build()
     }
@@ -46,7 +46,7 @@ class DummyController (
         }.onSuccess {
             return ResponseEntity.ok(dummy)
         }.onFailure {
-            return ResponseEntity.ok(it)
+            return ResponseEntity.internalServerError().body(it)
         }
         return ResponseEntity.internalServerError().build()
     }
@@ -59,7 +59,7 @@ class DummyController (
         }.onSuccess {
             return ResponseEntity.ok(result)
         }.onFailure {
-            return ResponseEntity.ok(it)
+            return ResponseEntity.internalServerError().body(it)
         }
         return ResponseEntity.internalServerError().build()
     }
