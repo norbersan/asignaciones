@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/", consumes = ["application/json"] )
 class DummyController (
     private val dummyService: DummyService
 ){
@@ -38,7 +38,7 @@ class DummyController (
     }
 
 
-    @PostMapping(value = ["/dummy/{id}"], produces = ["application/json"])
+    @PostMapping(value = ["/dummy"], produces = ["application/json"])
     fun update(@RequestBody dummy: Dummy): ResponseEntity<out Any> {
         var result: Dummy? = null
         runCatching {
@@ -52,10 +52,10 @@ class DummyController (
     }
 
     @DeleteMapping(value = ["/dummy/{id}"], produces = ["application/json"])
-    fun delete(@RequestBody dummy: Dummy): ResponseEntity<out Any> {
+    fun delete(@PathVariable id: Int): ResponseEntity<out Any> {
         var result: Dummy? = null
         runCatching {
-            dummyService.delete(dummy.id!!)
+            dummyService.delete(id)
         }.onSuccess {
             return ResponseEntity.ok(result)
         }.onFailure {

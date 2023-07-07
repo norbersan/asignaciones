@@ -1,8 +1,8 @@
 --liquibase formatted sql
 
 --changeset norberto:01
-create table if not exists test
+create table if not exists dummy
 (
-    id int not null primary key,
+    id serial primary key not null,
     text varchar(255)
 )
