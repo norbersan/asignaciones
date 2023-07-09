@@ -30,6 +30,10 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:postgresql")
+
+    // https://mvnrepository.com/artifact/org.telegram/telegrambots-spring-boot-starter
+    implementation("org.telegram:telegrambots-spring-boot-starter:6.7.0")
+
 }
 
 tasks.withType<KotlinCompile> {
