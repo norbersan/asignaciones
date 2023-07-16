@@ -2,10 +2,11 @@ package jw.org.asignaciones.model
 
 import jakarta.persistence.*
 import jakarta.persistence.Table
+import jw.org.asignaciones.model.converter.StringEncryptConverter
 import org.hibernate.annotations.DynamicUpdate
 
 @Entity
-@Table(name = "assignee")
+@Table(name = TableDef.Assignee.TABLENAME)
 @DynamicUpdate
 data class Assignee (
     @Id

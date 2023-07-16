@@ -3,8 +3,9 @@ package jw.org.asignaciones.model
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter
 
-class TableDef {
+object TableDef {
     object Assignee {
+        const val TABLENAME = "assignee"
         object ColDef {
             object ID {
                 const val NAME = "id"
@@ -34,6 +35,7 @@ class TableDef {
     }
 
     object Assignment {
+        const val TABLENAME = "assignment"
         object ColDef {
             object ID {
                 const val NAME = "id"
@@ -51,11 +53,13 @@ class TableDef {
             }
 
             object START {
-                const val NAME = "start"
+                const val NAME = "starts"
+                const val LEN = 50
             }
 
             object END {
-                const val NAME = "end"
+                const val NAME = "ends"
+                const val LEN = 50
             }
 
             object NOTES {
@@ -66,24 +70,14 @@ class TableDef {
     }
 
     object Notification {
+        const val TABLENAME = "notification"
         object ColumnDef {
-            const val ID = "id"
+            object ID {
+                const val NAME = "id"
+                const val DEFINITION = "serial"
+            }
         }
     }
-}
-
-@Converter
-class StringEncryptConverter(): AttributeConverter<String, String>{
-    override fun convertToDatabaseColumn(attribute: String?): String? {
-        //TODO("Not yet implemented")
-        return attribute?.reversed()
-    }
-
-    override fun convertToEntityAttribute(dbData: String?): String? {
-        //TODO("Not yet implemented")
-        return dbData?.reversed()
-    }
-
 }
 
 

@@ -1,11 +1,7 @@
 package jw.org.asignaciones.model
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
+import jw.org.asignaciones.model.converter.StringEncryptConverter
 import org.hibernate.annotations.DynamicUpdate
 
 @Entity
@@ -16,6 +12,8 @@ data class Dummy (
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "serial")
     var id: Int? = null,
+
+    @Convert(converter = StringEncryptConverter::class)
     var text: String? = null
 ){
 }

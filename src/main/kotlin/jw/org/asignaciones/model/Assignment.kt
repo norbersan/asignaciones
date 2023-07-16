@@ -1,11 +1,13 @@
 package jw.org.asignaciones.model
 
 import jakarta.persistence.*
+import jw.org.asignaciones.model.converter.LocalDateTimeEncryptConverter
+import jw.org.asignaciones.model.converter.StringEncryptConverter
 import org.hibernate.annotations.DynamicUpdate
 import java.time.LocalDateTime
 
 @Entity
-@Table(name = "assignment")
+@Table(name = TableDef.Assignment.TABLENAME)
 @DynamicUpdate
 data class Assignment (
     @Id
@@ -33,13 +35,17 @@ data class Assignment (
     var description: String? = null,
 
     @Column(
-        name = TableDef.Assignment.ColDef.START.NAME
+        name = TableDef.Assignment.ColDef.START.NAME,
+        length = TableDef.Assignment.ColDef.NOTES.LEN
     )
+    @Convert(converter = LocalDateTimeEncryptConverter::class)
     var start: LocalDateTime? = LocalDateTime.now(),
 
     @Column(
-        name = TableDef.Assignment.ColDef.END.NAME
+        name = TableDef.Assignment.ColDef.END.NAME,
+        length = TableDef.Assignment.ColDef.NOTES.LEN
     )
+    @Convert(converter = LocalDateTimeEncryptConverter::class)
     var end: LocalDateTime? = LocalDateTime.now(),
 
     @Column(
