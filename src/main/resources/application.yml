@@ -8,7 +8,7 @@ springdoc:
     path: /swagger-ui
     csrf:
       enabled: true
-    config-url: http://localhost:8080/api-docs.yaml
+    config-url: http://localhost:8080/api-docs
     operations-sorter: method
 spring:
   liquibase:

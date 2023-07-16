@@ -56,7 +56,7 @@ entonces iniciar laapplicacion ejecuta
 
 previamente asegurate que la variable JAVA_HOME apunta a la carpeta donde se instalo java (se necesita java 17 o superior)
 
-La definicion de la api se puede descargar de http://localhost:8080/open-api en formato JSON y de http://localhost:8080/open-api.yaml en formato YAML
+La definicion de la api se puede descargar de http://localhost:8080/api-docs en formato JSON y de http://localhost:8080/api-docs.yaml en formato YAML
 
 La api se puede invocar mediate swagger-ui en http://localhost:8080/swagger-ui/index.html
 
