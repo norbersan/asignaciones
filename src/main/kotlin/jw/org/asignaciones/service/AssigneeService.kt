@@ -7,10 +7,4 @@ import org.springframework.stereotype.Service
 @Service
 class AssigneeService (
     assigneeRepository: AssigneeRepository
-): AbstractCRUDService<Assignee, Int>(assigneeRepository) {
-    fun update(assignee: Assignee) {
-        if (assignee.id == null)
-            throw IllegalArgumentException("id must not be null")
-        update(assignee, assignee.id!!)
-    }
-}
+): AbstractCRUDService<Assignee, Int>(assigneeRepository)

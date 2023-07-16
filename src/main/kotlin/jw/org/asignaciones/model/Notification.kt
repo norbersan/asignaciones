@@ -17,4 +17,6 @@ data class Notification (
     )
     var id: Int? = null
 
-)
+): IndexedEntity<Int> {
+    override fun index(): Int? = id
+}

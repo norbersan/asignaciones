@@ -7,7 +7,7 @@ import org.hibernate.annotations.DynamicUpdate
 @Entity
 @Table(name = "dummy")
 @DynamicUpdate
-data class Dummy (
+data class Dummy(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "serial")
@@ -15,5 +15,6 @@ data class Dummy (
 
     @Convert(converter = StringEncryptConverter::class)
     var text: String? = null
-){
+): IndexedEntity<Int> {
+    override fun index(): Int? = id
 }

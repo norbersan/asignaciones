@@ -1,10 +1,11 @@
 package jw.org.asignaciones.service
 
 import jakarta.persistence.EntityNotFoundException
+import jw.org.asignaciones.model.IndexedEntity
 import org.springframework.data.jpa.repository.JpaRepository
 import kotlin.jvm.optionals.getOrElse
 
-abstract class AbstractCRUDService<E : Any, K : Any> (
+abstract class AbstractCRUDService<E: IndexedEntity<K>, K: Any> (
     val repo: JpaRepository<E, K>
 ){
     fun create(entity: E) = repo.save(entity)
@@ -16,11 +17,17 @@ abstract class AbstractCRUDService<E : Any, K : Any> (
         }
     }
 
-    fun update(entity: E, key: K) {
-        if (!repo.existsById(key))
-            throw IllegalArgumentException("entity not found")
+    fun update(entity: E) {
+        if (entity.index() == null)
+            throw IllegalArgumentException("id must not be null")
+        if (!repo.existsById(entity.index()!!))
+            throw EntityNotFoundException("entity not found")
         repo.save(entity)
     }
 
-    fun delete(id: K) = repo.deleteById(id)
+    fun delete(id: K) {
+        if (!repo.existsById(id))
+            throw EntityNotFoundException("entity not found")
+        repo.deleteById(id)
+    }
 }

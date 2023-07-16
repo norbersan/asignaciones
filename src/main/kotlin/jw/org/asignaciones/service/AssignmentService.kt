@@ -7,11 +7,4 @@ import org.springframework.stereotype.Service
 @Service
 class AssignmentService (
     assignmentRepository: AssignmentRepository
-): AbstractCRUDService<Assignment, Int>(assignmentRepository){
-    fun update(assignment: Assignment) {
-        if (assignment.id == null)
-            throw IllegalArgumentException("id must not be null")
-        update(assignment, assignment.id!!)
-    }
-
-}
+): AbstractCRUDService<Assignment, Int>(assignmentRepository)

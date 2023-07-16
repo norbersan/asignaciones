@@ -54,4 +54,6 @@ data class Assignee (
     @Convert(converter = StringEncryptConverter::class)
     var notes: String? = null
 
-)
+): IndexedEntity<Int> {
+    override fun index(): Int? = id
+}
