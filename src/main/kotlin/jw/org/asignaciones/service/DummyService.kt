@@ -7,4 +7,4 @@ import org.springframework.stereotype.Service
 @Service
 class DummyService(
     dummyRepository: DummyRepository
-): AbstractCRUDService<Dummy, Int>(dummyRepository)
+): AbstractExtendedService<Dummy, Int>(dummyRepository)

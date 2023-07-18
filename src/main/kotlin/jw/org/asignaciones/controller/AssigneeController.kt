@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import jw.org.asignaciones.model.Assignee
 import jw.org.asignaciones.service.AssigneeService
+import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/" )
 class AssigneeController(
     service: AssigneeService
-):AbstractCRUDController<Assignee, Int>(service){
+):AbstractExtendedController<Assignee, Int>(service){
     @Operation(summary = "Creates an Assignee in database (Crud)")
     @ApiResponses(value = [
         ApiResponse(responseCode = "200",
@@ -87,4 +88,8 @@ class AssigneeController(
             content = [ Content() ])
     ])
     override fun delete(@PathVariable id: Int): ResponseEntity<out Any> = super.delete(id)
+
+    override fun findAll() = super.findAll()
+
+    override fun findAll(pageable: Pageable) = super.findAll(pageable)
 }

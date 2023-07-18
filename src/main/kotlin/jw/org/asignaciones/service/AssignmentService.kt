@@ -7,4 +7,4 @@ import org.springframework.stereotype.Service
 @Service
 class AssignmentService (
     assignmentRepository: AssignmentRepository
-): AbstractCRUDService<Assignment, Int>(assignmentRepository)
+): AbstractExtendedService<Assignment, Int>(assignmentRepository)
