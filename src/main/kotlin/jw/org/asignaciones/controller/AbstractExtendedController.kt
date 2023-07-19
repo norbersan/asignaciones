@@ -14,9 +14,9 @@ abstract class AbstractExtendedController<E: IndexedEntity<K>, K: Any>(
         runCatching {
             result = (service as AbstractExtendedService<E, K>).findAll()
         }.onSuccess {
-            ResponseEntity.ok(result ?: mutableListOf())
+            return ResponseEntity.ok(result ?: mutableListOf())
         }.onFailure {
-            ResponseEntity.internalServerError().body(it)
+            return ResponseEntity.internalServerError().body(it)
         }
         return ResponseEntity.internalServerError().build()
     }
@@ -26,9 +26,9 @@ abstract class AbstractExtendedController<E: IndexedEntity<K>, K: Any>(
         runCatching {
             result = (service as AbstractExtendedService<E, K>).findAll(pageable)
         }.onSuccess {
-            ResponseEntity.ok(result?.content ?: mutableListOf())
+            return ResponseEntity.ok(result?.content ?: mutableListOf())
         }.onFailure {
-            ResponseEntity.internalServerError().body(it)
+            return ResponseEntity.internalServerError().body(it)
         }
         return ResponseEntity.internalServerError().build()
     }

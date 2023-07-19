@@ -9,13 +9,13 @@ import org.springframework.http.ResponseEntity
 abstract class AbstractCRUDController<E: IndexedEntity<K>, K: Any>(
     protected val service: AbstractCRUDService<E,K>
 ){
-    open fun create(e: E): ResponseEntity<out Any> {
+    open fun create(entity: E): ResponseEntity<out Any> {
         var result: E? = null
-        if (e.index() != null)
+        if (entity.index() != null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body("Field id must be null. To update a ${e.javaClass.simpleName} use the update endpoint")
+                .body("Field id must be null. To update a ${entity.javaClass.simpleName} use the update endpoint")
         runCatching {
-            result = service.create(e)
+            result = service.create(entity)
         }.onSuccess {
             return ResponseEntity.ok(result)
         }.onFailure {
@@ -40,12 +40,12 @@ abstract class AbstractCRUDController<E: IndexedEntity<K>, K: Any>(
         return ResponseEntity.internalServerError().build()
     }
 
-    open fun update(e: E): ResponseEntity<out Any> {
+    open fun update(entity: E): ResponseEntity<out Any> {
         var result: E? = null
         runCatching {
             //service.update(e)
         }.onSuccess {
-            return ResponseEntity.ok(e)
+            return ResponseEntity.ok(entity)
         }.onFailure {
             return if (it is EntityNotFoundException){
                 ResponseEntity.notFound().build()

@@ -1,22 +1,14 @@
 package jw.org.asignaciones.controller
 
 import io.swagger.v3.oas.annotations.Operation
-import io.swagger.v3.oas.annotations.Parameter
-import io.swagger.v3.oas.annotations.Parameters
-import io.swagger.v3.oas.annotations.enums.ParameterIn
+import io.swagger.v3.oas.annotations.media.ArraySchema
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
-import jakarta.annotation.PostConstruct
-import jakarta.persistence.EntityNotFoundException
 import jw.org.asignaciones.model.Dummy
-import jw.org.asignaciones.repository.AssigneeRepository
-import jw.org.asignaciones.repository.AssignmentRepository
-import jw.org.asignaciones.service.AssigneeService
-import jw.org.asignaciones.service.AssignmentService
 import jw.org.asignaciones.service.DummyService
-import org.springframework.http.HttpStatus
+import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -24,7 +16,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/" )
 class DummyController (
     service: DummyService
-): AbstractCRUDController<Dummy, Int>(service){
+): AbstractExtendedController<Dummy, Int>(service){
     @Operation(summary = "Creates a Dummy in database (Crud)")
     @ApiResponses(value = [
         ApiResponse(responseCode = "200",
@@ -92,4 +84,33 @@ class DummyController (
             content = [ Content() ])
     ])
     override fun delete(@PathVariable id: Int): ResponseEntity<out Any> = super.delete(id)
+
+    @GetMapping(value = ["/dummies"], produces = ["application/json"])
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "200",
+            description = "List of all dummies",
+            content = [ Content(mediaType = "application/json",
+                array = ArraySchema(schema = Schema(implementation = Dummy::class)
+                )
+            )]),
+        ApiResponse(responseCode = "500",
+            description = "Internal server error",
+            content = [ Content() ])
+    ])
+    override fun findAll() = super.findAll()
+
+    @Operation(summary = "Get a page list of all dummies")
+    @GetMapping(value = ["/dummies/"], produces = ["application/json"])
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "200",
+            description = "Page of dummies",
+            content = [ Content(mediaType = "application/json",
+                array = ArraySchema(schema = Schema(implementation = Dummy::class)
+                )
+            )]),
+        ApiResponse(responseCode = "500",
+            description = "Internal server error",
+            content = [ Content() ])
+    ])
+    override fun findAll(pageable: Pageable) = super.findAll(pageable)
 }
