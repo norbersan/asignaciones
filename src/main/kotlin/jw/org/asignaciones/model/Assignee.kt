@@ -2,6 +2,7 @@ package jw.org.asignaciones.model
 
 import jakarta.persistence.*
 import jakarta.persistence.Table
+import jakarta.validation.constraints.NotNull
 import jw.org.asignaciones.model.converter.StringEncryptConverter
 import org.hibernate.annotations.DynamicUpdate
 
@@ -11,6 +12,7 @@ import org.hibernate.annotations.DynamicUpdate
 data class Assignee (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     @Column(
         name = TableDef.Assignee.ColDef.ID.NAME,
         columnDefinition = TableDef.Assignee.ColDef.ID.DEFINITION,

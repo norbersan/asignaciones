@@ -85,6 +85,7 @@ class DummyController (
     ])
     override fun delete(@PathVariable id: Int): ResponseEntity<out Any> = super.delete(id)
 
+    @Operation(summary = "Get a list of all dummies")
     @GetMapping(value = ["/dummies"], produces = ["application/json"])
     @ApiResponses(value = [
         ApiResponse(responseCode = "200",

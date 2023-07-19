@@ -1,6 +1,7 @@
 package jw.org.asignaciones.model
 
 import jakarta.persistence.*
+import jakarta.validation.constraints.NotNull
 import jw.org.asignaciones.model.converter.LocalDateTimeEncryptConverter
 import jw.org.asignaciones.model.converter.StringEncryptConverter
 import org.hibernate.annotations.DynamicUpdate
@@ -12,6 +13,7 @@ import java.time.LocalDateTime
 data class Assignment (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     @Column(
         name = TableDef.Assignment.ColDef.ID.NAME,
         columnDefinition = TableDef.Assignment.ColDef.ID.DEFINITION,
