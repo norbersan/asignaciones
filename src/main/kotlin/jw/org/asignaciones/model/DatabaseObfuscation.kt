@@ -1,8 +1,5 @@
 package jw.org.asignaciones.model
 
-import jakarta.persistence.AttributeConverter
-import jakarta.persistence.Converter
-
 object TableDef {
     object Assignee {
         const val TABLENAME = "assignee"
