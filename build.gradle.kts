@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.io.FileInputStream
 
 plugins {
     id("org.springframework.boot") version "3.1.1"
@@ -16,6 +17,15 @@ java {
     sourceCompatibility = JavaVersion.VERSION_17
 }
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.yaml:snakeyaml:2.0")
+    }
+}
+
 repositories {
     mavenCentral()
 }
@@ -25,11 +35,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     liquibaseRuntime("org.liquibase:liquibase-core")
-    liquibaseRuntime("org.yaml:snakeyaml:2.0")
     liquibaseRuntime("info.picocli:picocli:4.6.1")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.+")
-    runtimeOnly("org.postgresql:postgresql")
-    runtimeOnly("com.mysql:mysql-connector-j")
+    liquibaseRuntime("org.postgresql:postgresql")
+    liquibaseRuntime("com.mysql:mysql-connector-j")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("org.testcontainers:junit-jupiter")
@@ -53,12 +62,9 @@ tasks.withType<Test> {
 
 
 
-/*
-//val props = Properties()
-val props = org.gradle.internal.impldep.org.yaml.snakeyaml.Yaml()
-//val props = org.yaml.snakeyaml.Yaml()
+val props = org.yaml.snakeyaml.Yaml()
     .load<Map<String, String>>(FileInputStream("src/main/resources/application.yml"))
-*/
+
 
 liquibase {
     activities.register("mainMySql") {
