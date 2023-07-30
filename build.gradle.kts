@@ -93,9 +93,9 @@ liquibase {
             "logLevel" to "FINE"
         )
     }
-    runList = "mainMySql, mainPostgres"
-    //runList = "mainMySql"
-    //runList = "mainPostgres"
+    runList = "mainMySql, mainPostgres" // runs against mysql & postgres
+    //runList = "mainMySql" // runs only against mysql
+    //runList = "mainPostgres" // runs only against postgres
 }
 
 
