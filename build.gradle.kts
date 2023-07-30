@@ -1,8 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+//import java.io.FileInputStream
 
 plugins {
     id("org.springframework.boot") version "3.1.1"
     id("io.spring.dependency-management") version "1.1.0"
+    id("org.liquibase.gradle") version "2.2.0"
+    //id("org.openapi.generator") version "4.2.3"
     kotlin("jvm") version "1.8.22"
     kotlin("plugin.spring") version "1.8.22"
     kotlin("plugin.jpa") version "1.8.22"
@@ -23,10 +26,13 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.liquibase:liquibase-core")
+    liquibaseRuntime("org.yaml:snakeyaml:2.0")
+    liquibaseRuntime("org.liquibase:liquibase-core")
+    liquibaseRuntime("info.picocli:picocli:4.6.1")
+    liquibaseRuntime("org.liquibase:liquibase-core")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.+")
-    runtimeOnly("org.postgresql:postgresql")
-    runtimeOnly("com.mysql:mysql-connector-j")
+    liquibaseRuntime("org.postgresql:postgresql")
+    liquibaseRuntime("com.mysql:mysql-connector-j")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("org.testcontainers:junit-jupiter")
@@ -47,3 +53,87 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+
+
+
+/*
+//val props = Properties()
+val props = org.gradle.internal.impldep.org.yaml.snakeyaml.Yaml()
+//val props = org.yaml.snakeyaml.Yaml()
+    .load<Map<String, String>>(FileInputStream("src/main/resources/application.yml"))
+*/
+
+liquibase {
+    activities.register("mainMySql") {
+        // https://docs.liquibase.com/parameters/home.html
+        this.arguments = mapOf(
+            "changelogFile" to "src/main/resources/liquibase/changelog.xml",
+            "url" to "jdbc:mysql://localhost:3306/db",
+            "username" to "mysql",
+            "password" to "mysql",
+            //"driver" to "com.mysql.cj.jdbc.Driver",
+            "databaseChangelogLockTableName" to "liquibase_lock",
+            "databaseChangelogTableName" to "liquibase",
+            "logLevel" to "FINE"
+        )
+    }
+    activities.register("mainPostgres") {
+        // https://docs.liquibase.com/parameters/home.html
+        this.arguments = mapOf(
+            "changelogFile" to "src/main/resources/liquibase/changelog.xml",
+            "url" to "jdbc:postgresql://localhost:5432/?currentSchema=public",
+            "username" to "postgres",
+            "password" to "postgres",
+            //"driver" to "com.mysql.cj.jdbc.Driver",
+            "databaseChangelogLockTableName" to "liquibase_lock",
+            "databaseChangelogTableName" to "liquibase",
+            "logLevel" to "FINE"
+        )
+    }
+    runList = "mainMySql, mainPostgres"
+    //runList = "mainMySql"
+    //runList = "mainPostgres"
+}
+
+
+
+
+/*
+// https://mokkapps.de/blog/how-to-generate-angular-and-spring-code-from-open-api-specification
+openApiValidate {
+    inputSpec.set("http://localhost:8080/api-docs")
+}
+
+openApiGenerate {
+    generatorName.set("spring")
+    library.set("spring-boot")
+    inputSpec.set("${rootDir}/openapi/schema.yaml")
+    outputDir.set("${rootDir}/backend/openapi")
+    systemProperties.putAll(mapOf(
+        "modelDocs" to "false",
+        "models" to "",
+        "apis" to "",
+        "supportingFiles" to "false"
+    ))
+    configOptions.putAll(mapOf(
+        "useOptional"          to "true",
+        "swaggerDocketConfig"  to "false",
+        "performBeanValidation" to "false",
+        "useBeanValidation"    to "false",
+        "useTags"              to "true",
+        "singleContentTypes"   to "true",
+        "basePackage"          to "de.mokkapps.gamenews.api",
+        "configPackage"        to "de.mokkapps.gamenews.api",
+        "title"                to rootProject.name,
+        "java8"                to "false",
+        "dateLibrary"          to "java8",
+        "serializableModel"    to "true",
+        "artifactId"           to rootProject.name,
+        "apiPackage"           to "de.mokkapps.gamenews.api",
+        "modelPackage"         to "de.mokkapps.gamenews.api.model",
+        "invokerPackage"       to "de.mokkapps.gamenews.api",
+        "interfaceOnly"        to "true"
+    ))
+}
+*/
