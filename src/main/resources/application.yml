@@ -24,12 +24,14 @@ spring:
     database-change-log-table: liquibase
     clear-checksums: false
   datasource:
-    url: jdbc:mysql://localhost:3306/db
-    password: mysql
-    username: mysql
-    #url: jdbc:postgresql://localhost:5432/?currentSchema=public
-    #password: postgres
-    #username: postgres
+    mysql:
+      url: jdbc:mysql://localhost:3306/db
+      password: mysql
+      username: mysql
+    postgres:
+      url: jdbc:postgresql://localhost:5432/?currentSchema=public
+      password: postgres
+      username: postgres
   jpa:
     hibernate:
       ddl-auto: none
