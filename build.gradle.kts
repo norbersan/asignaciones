@@ -37,8 +37,11 @@ dependencies {
     liquibaseRuntime("org.liquibase:liquibase-core")
     liquibaseRuntime("info.picocli:picocli:4.6.1")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.+")
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     liquibaseRuntime("org.postgresql:postgresql")
+    implementation("org.postgresql:postgresql")
     liquibaseRuntime("com.mysql:mysql-connector-j")
+    implementation("com.mysql:mysql-connector-j")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("org.testcontainers:junit-jupiter")
@@ -77,7 +80,7 @@ liquibase {
             //"driver" to "com.mysql.cj.jdbc.Driver",
             "databaseChangelogLockTableName" to "liquibase_lock",
             "databaseChangelogTableName" to "liquibase",
-            "logLevel" to "FINE"
+            "logLevel" to "INFO"
         )
     }
     activities.register("mainPostgres") {
@@ -90,12 +93,18 @@ liquibase {
             //"driver" to "com.mysql.cj.jdbc.Driver",
             "databaseChangelogLockTableName" to "liquibase_lock",
             "databaseChangelogTableName" to "liquibase",
-            "logLevel" to "FINE"
+            "logLevel" to "INFO"
         )
     }
-    runList = "mainMySql, mainPostgres" // runs against mysql & postgres
-    //runList = "mainMySql" // runs only against mysql
-    //runList = "mainPostgres" // runs only against postgres
+
+    // runs against mysql & postgres
+    runList = "mainMySql, mainPostgres"
+
+    // runs only against mysql
+    //runList = "mainMySql"
+
+    // runs only against postgres
+    //runList = "mainPostgres"
 }
 
 
