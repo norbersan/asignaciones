@@ -31,3 +31,23 @@ where   (ele->>'ids')::jsonb @> '[82292]'
 -- https://dzone.com/articles/using-jsonb-in-postgresql-how-to-effectively-store
 --
 -- https://stackoverflow.com/questions/18404055/index-for-finding-an-element-in-a-json-array
+
+
+
+-- TUTORIAL SPRING BOOT 3 SECURITY
+-- https://medium.com/@truongbui95/jwt-authentication-and-authorization-with-spring-boot-3-and-spring-security-6-2f90f9337421
+-- repo https://github.com/buingoctruong/springboot3-springsecurity6-jwt/tree/master
+
+-- ANOTHER TUTORIAL
+-- https://www.bezkoder.com/spring-boot-security-jwt/
+-- REPO https://github.com/bezkoder/spring-boot-security-login
+
+-- ANOTHER TUTORIAL
+-- https://www.toptal.com/spring/spring-security-tutorial
+-- repo https://github.com/Yoh0xFF/java-spring-security-example/blob/master/pom.xml
+
+-- ANOTHER TUTORIAL (looks older)
+-- https://reflectoring.io/spring-security/
+-- repo https://github.com/thombergs/code-examples/tree/master/spring-security/getting-started
+
+-- security autoconfiguration : https://www.baeldung.com/spring-boot-security-autoconfiguration
