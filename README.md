@@ -26,7 +26,7 @@
 
 -TODO
 
-### Primeros pasos para crear el ui (react.s o next.js)
+### Primeros pasos para crear el ui (react.js o next.js)
 
 El frontend sera un proyecto react administrado via gradle en la carpeta ui
 
