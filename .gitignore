@@ -37,3 +37,14 @@ out/
 
 ### project specific ###
 /docker/postgres-data/
+!**/node_modules
+
+!**/.next
+!**/build
+!**/coverage
+!**/node_modules
+!**/npm-debug*
+!**/out
+!**/yarn-debug*
+!**/yarn-error*
+

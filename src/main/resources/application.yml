@@ -30,6 +30,9 @@ spring:
     #url: jdbc:postgresql://localhost:5432/?currentSchema=public
     #password: postgres
     #username: postgres
+    hikari:
+      # some free cloud services limit number of connections in the free tier
+      maximum-pool-size: 5
   jpa:
     hibernate:
       ddl-auto: none

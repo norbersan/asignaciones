@@ -1,3 +1,7 @@
+import com.github.gradle.node.npm.task.NpmTask
+import com.github.gradle.node.npm.task.NpxTask
+import com.github.gradle.node.pnpm.task.PnpmTask
+import com.github.gradle.node.yarn.task.YarnTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.FileInputStream
 
@@ -8,6 +12,7 @@ plugins {
     kotlin("jvm") version "1.8.22"
     kotlin("plugin.spring") version "1.8.22"
     kotlin("plugin.jpa") version "1.8.22"
+    id("com.github.node-gradle.node") version "7.0.1"
 }
 
 group = "jw.org"
@@ -107,8 +112,85 @@ liquibase {
     //runList = "mainPostgres"
 }
 
+// based on https://github.com/srs/gradle-node-plugin/issues/292#issuecomment-562848790
+node {
+    download.set(true)
+    version.set("20.8.0")
+    npmVersion.set("10.1.0")
+    pnpmVersion.set("8.10.2")
+    yarnVersion.set("1.22.19")
+    nodeProjectDir.set(project.file("ui"))
+    workDir.set(project.file("${project.buildDir}/nodejs"))
+    pnpmWorkDir.set(project.file("${project.buildDir}/pnpm"))
+    npmWorkDir.set(project.file("${project.buildDir}/npm"))
+    yarnWorkDir.set(project.file("${project.buildDir}/yarn"))
+}
 
+val addYarnExpress = task<YarnTask>("addYarnExpress") {
+    description = "installs deps in modules folder and updates package.json file"
+    group = "yarn"
+    // add the express package only
+    args.addAll("add", "express", "--dev")
+    shouldRunAfter("nodeSetup", "yarnSetup")
+}
 
+val npmInit = task<NpmTask>("npmInit") {
+    npmCommand.set(listOf("init"))
+    args.addAll("-y")
+    shouldRunAfter("nodeSetup", "npmSetup")
+}
+
+// https://learning.oreilly.com/library/view/next-js-quick-start/9781788993661/847c2413-daf8-4a0a-b59a-9bea81d2e81f.xhtml
+val installNextDev = task<NpmTask>("installNextD") {
+    args.addAll("add", "next@latest", "--save-dev")
+    shouldRunAfter("nodeSetup", "npmSetup")
+}
+
+// https://learning.oreilly.com/library/view/next-js-quick-start/9781788993661/847c2413-daf8-4a0a-b59a-9bea81d2e81f.xhtml
+val installReactAndReacrDom = task<NpmTask>("installReactAndReactDom") {
+    args.addAll("add", "react@latest", "react-dom@latest", "--save")
+    shouldRunAfter("nodeSetup", "npmSetup")
+}
+
+val addNpmExpress = task<NpmTask>("addNpmExpress") {
+    // add the express package only
+    args.addAll("add", "express", "--dev")
+    shouldRunAfter("nodeSetup", "npmSetup")
+}
+
+val runNodeMon = task<NpxTask>("runNodeMon"){
+    group = "npx"
+    command.set("-exec")
+    args.addAll("nodemon", "test")
+    //shouldRunAfter("nodeSetup", "npmSetup")
+
+}
+
+val runPnpmInit = task<PnpmTask>("runPnpmInit"){
+    group = "pnpm"
+    pnpmCommand.add("init")
+    args.addAll("-y")
+    shouldRunAfter("nodeSetup", "pnpmInstall")
+}
+
+val runPnpmListLicenses = task<PnpmTask>("runPnpmListLicenses"){
+    group = "pnpm"
+    pnpmCommand.add("licenses")
+    args.addAll("list")
+    shouldRunAfter("nodeSetup", "pnpmInstall")
+}
+
+/*
+
+val integrationTest = task<Test>("integrationTest") {
+    description = "Task to run integration tests"
+    group = "verification"
+
+    testClassesDirs = sourceSets["integrationTest"].output.classesDirs
+    classpath = sourceSets["integrationTest"].runtimeClasspath
+    shouldRunAfter("test")
+}
+*/
 
 /*
 // https://mokkapps.de/blog/how-to-generate-angular-and-spring-code-from-open-api-specification

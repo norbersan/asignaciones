@@ -26,9 +26,33 @@
 
 -TODO
 
+### Primeros pasos para crear el ui (react.s o next.js)
+
+El frontend sera un proyecto react administrado via gradle en la carpeta ui
+
+Instrucciones para iniciar el package.json e inportar librerias:
+
+En linea de comandos en el directorio raiz del proyecto ejecutar:
+
+_para instalar node (local, sandboxed)_
+
+     gradlew.bat :npmSetup
+
+_para inicializar el package.json_
+
+     gradlew.bat :npmInit
+
+_para instalar react y react dom_
+
+    gradlew.bat :installReactAndReactDom
+
+_para instalar next_
+
+    gradlew.bat :installNextD
+
 ### Como ejecutar la aplicacion (para desarrollar o testar localmente localmente)
 
-Para ejecutar la aplicacion es necesario disponer de acceso a un servidor postgres
+Para ejecutar la aplicacion es necesario disponer de acceso a un servidor postgres o mysql
 
 La manera mas sencilla es ejecutar postgres mediante docker compose
 
@@ -62,4 +86,12 @@ La api se puede invocar mediate swagger-ui en http://localhost:8080/swagger-ui/i
 
 
 
+
+
+
+### REFERENCE LINKS
+
+http://exploringjs.com/
+
+https://reactjs.org/docs/introducing-jsx.html
 
