@@ -6,6 +6,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.FileInputStream
 
 plugins {
+    war
     id("org.springframework.boot") version "3.1.1"
     id("io.spring.dependency-management") version "1.1.0"
     id("org.liquibase.gradle") version "2.2.0"
@@ -38,6 +39,7 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     liquibaseRuntime("org.liquibase:liquibase-core")
     liquibaseRuntime("info.picocli:picocli:4.6.1")
@@ -69,10 +71,8 @@ tasks.withType<Test> {
 }
 
 
-
 val props = org.yaml.snakeyaml.Yaml()
     .load<Map<String, String>>(FileInputStream("src/main/resources/application.yml"))
-
 
 liquibase {
     activities.register("mainMySql") {
@@ -179,6 +179,14 @@ val runPnpmListLicenses = task<PnpmTask>("runPnpmListLicenses"){
     args.addAll("list")
     shouldRunAfter("nodeSetup", "pnpmInstall")
 }
+
+// TO DO set build dependency to ensure react app assembled into static folder
+//tasks.get("build").dependsOn("npmInstall")
+
+
+
+
+
 
 /*
 
