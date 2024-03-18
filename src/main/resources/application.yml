@@ -46,3 +46,5 @@ telegrambots:
   enabled: false
   apikey: ${TELEGRAM_APIKEY:change-me}
   username: ${TELEGRAM_USERNAME:change-me}
+server:
+  port: 8080
